@@ -8,30 +8,34 @@ class User{
     public $password;
 
     /*methods*/
-    public static function  find_this_query($sql, $values = []){
+    public static function find_this_query($sql, $values = []){
         global $database;
-        $result = $database->query($sql, $values);
-        return $result;
+        $result = $database->query($sql,$values);
+        var_dump($sql);
+        var_dump($values);
+        $the_object_array = [];
+        while($row = mysqli_fetch_assoc($result)){
+            $the_object_array[] = self::instantie($row);
+        }
+        return $the_object_array;
     }
+
     public static function find_all_users(){
-        global $database;
-        $result = $database->query("SELECT * FROM users");
-//        var_dump($result);
-//        print_r($result);
+        $result = self::find_this_query("SELECT * FROM users");
+        //var_dump($result);
         return $result;
     }
+
     public static function find_user_by_id($user_id){
-        global $database;
-        // sanitizing the user_id
-        $user_id = $database->escape_string($user_id);
-        $result = $database->query("SELECT * FROM users WHERE id =?", [$user_id]);
-        return $result;
+        $result = self::find_this_query("SELECT * FROM users WHERE id=?", [$user_id]);
+
+        return !empty($result) ? array_shift($result) : false;
     }
     public static function find_user_by_lastname($lastname){
         global $database;
         // sanitizing the lastname
         $lastname = $database->escape_string($lastname);
-        $result = $database->query("SELECT * FROM users WHERE last_name LIKE '% . $lastname . %'");
+        $result = $database->query("SELECT * FROM users WHERE last_name LIKE '%$lastname%'");
         return $result;
     }
     //find user by lastname
@@ -43,5 +47,19 @@ class User{
 
         return $result;
     }
+    public static function instantie($result){
+        $the_object = new self;
+        foreach($result as $the_attribute => $value){
+            if($the_object->has_the_attribute($the_attribute)){
+                $the_object->$the_attribute = $value;
+            }
+        }
+        return $the_object;
+    }
+    public function has_the_attribute($the_attribute){
+        $object_properties = get_object_vars($this);
+        return array_key_exists($the_attribute, $object_properties);
+    }
+
 }
 ?>

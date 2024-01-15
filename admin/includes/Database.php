@@ -30,11 +30,11 @@ class Database
                     $types .= "d";
                 }
                 $values[] = $param;
-                //var_dump($values);
+                array_unshift($values, $types);
+                call_user_func_array([$stmt, "bind_param"],$this ->ref_values($values));
             }
         }
-        array_unshift($values, $types);
-        call_user_func_array([$stmt, "bind_param"],$this ->ref_values($values));
+
         //execute statement
         $stmt->execute();
         $result = $stmt->get_result();
