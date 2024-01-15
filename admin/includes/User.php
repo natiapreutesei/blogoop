@@ -11,8 +11,6 @@ class User{
     public static function find_this_query($sql, $values = []){
         global $database;
         $result = $database->query($sql,$values);
-        var_dump($sql);
-        var_dump($values);
         $the_object_array = [];
         while($row = mysqli_fetch_assoc($result)){
             $the_object_array[] = self::instantie($row);
