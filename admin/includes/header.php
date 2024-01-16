@@ -1,5 +1,7 @@
 <?php
-	include ("init.php");
+	require_once ("init.php");
+	ob_start(); //output buffering start - first build the html apart
+
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>Dashboard - Natanael Admin Dashboard</title>
 
 
 

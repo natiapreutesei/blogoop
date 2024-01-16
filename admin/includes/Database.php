@@ -26,13 +26,14 @@ class Database
                     $types .= "i";
                 } elseif (is_string($param)) {
                     $types .= "s";
-                } elseif (is_float($param)) {
+                } else {
                     $types .= "d";
                 }
                 $values[] = $param;
-                array_unshift($values, $types);
-                call_user_func_array([$stmt, "bind_param"],$this ->ref_values($values));
             }
+
+            array_unshift($values, $types);
+            call_user_func_array([$stmt, "bind_param"],$this ->ref_values($values));
         }
 
         //execute statement
