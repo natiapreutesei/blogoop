@@ -1,8 +1,11 @@
 <?php
     require_once('includes/header.php');
+	$the_message = "";
+	//control is somebody logged in
     if ($session ->is_signed_in()) { //check if the user is logged in and if true we redirect to index.php
         header("location:index.php");
     }
+
 	if (isset($_POST['submit'])) {
         $username = trim($_POST['username']);
         $password = trim($_POST['password']);
@@ -30,15 +33,16 @@
 				<h1 class="auth-title">Log in.</h1>
 			<p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
 
+			<h2 class="bg-danger"><?php echo $the_message; ?></h2>
 			<form action="" method="POST">
 				<div class="form-group position-relative has-icon-left mb-4">
-					<input type="text" class="form-control form-control-xl" placeholder="Username" name="username">
+					<input type="text" class="form-control form-control-xl" placeholder="Username" name="username" value="<?php echo htmlentities($username); ?>">
 					<div class="form-control-icon">
 						<i class="bi bi-person"></i>
 					</div>
 				</div>
 				<div class="form-group position-relative has-icon-left mb-4">
-					<input type="password" class="form-control form-control-xl" placeholder="Password" name="password">
+					<input type="password" class="form-control form-control-xl" placeholder="Password" name="password" value="<?php echo htmlentities($password); ?>">
 					<div class="form-control-icon">
 						<i class="bi bi-shield-lock"></i>
 					</div>
