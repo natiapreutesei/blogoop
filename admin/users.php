@@ -20,11 +20,11 @@ include("includes/content-top.php");
 		<h1 class="text-center">All Users</h1>
 		<hr class="pb-3">
         <?php
-        $users = User::find_all_users();
+        $users = User::find_all();
 
         ?>
 		<div class="table-responsive">
-			<table class="table table-dark mb-0">
+			<table class="table mb-0">
 				<thead>
 				<tr>
 					<th>ID</th>
@@ -60,13 +60,13 @@ include("includes/content-top.php");
 	</div>
 </div>
 <?php
-	$allUsers = User::find_all_users();
+	/*$allUsers = User::find_all_users();
 	$user = new User();
 	$user->username  = "test";
 	$user->password  = "test";
 	$user->first_name  = "test";
 	$user->last_name  = "test";
-	$user->create();
+	$user->create();*/
 ?>
 <?php
 include("includes/footer.php");
